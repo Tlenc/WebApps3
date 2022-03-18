@@ -2,12 +2,12 @@
     <div>
     <h2>Checkout</h2>
     <h3>Added lessons</h3>
-    <div v-for='lesson in cart' :key="lesson.id">
+    <div  v-for="(lesson, index) in cart" :key="lesson._id">
        <figure>
           <img style="width: 200px;" v-bind:src="'https://web-apps-cw2.herokuapp.com/' + lesson.image">
         </figure>
         {{lesson.subject}} 
-        <button @click='removeLesson(lesson)'>Remove</button>
+        <button @click='removeLesson(index); passLessonToRemove(lesson)'>Remove</button>
     </div>
     <p>
     <strong>Name</strong> <input v-model="name" />
@@ -29,7 +29,11 @@ export default {
     },
  methods: {
     removeLesson(lessonRemove){
-        this.$emit('removeLesson',lessonRemove)
+        this.$emit('removeLesson',lessonRemove,)
+        
+    },
+    passLessonToRemove(lesson){
+        this.$emit('passLessonToRemove',lesson,)
     }
  }
 };

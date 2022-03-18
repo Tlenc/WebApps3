@@ -5,8 +5,8 @@
       <h1>{{website.name}}</h1>
       <button @click="showCheckout">{{this.cart.length}} Checkout </button>
        </header>
-       <lesson-list @addLesson="addItem"></lesson-list>
-       <checkout :cart="cart" @removeLesson="removeFromCart"></checkout>
+       <lesson-list :lessons="lessons" @addLesson="addItem"></lesson-list>
+       <checkout :cart="cart" @removeLesson="removeFromCart" @passLessonToRemove="updateSpace"></checkout>
   </div>
 </template>
 
@@ -40,17 +40,36 @@ export default {
         console.log(lessonPass._id);
       },
     removeFromCart(lessonRemove){
-             console.log(this.cart.length)
+     
+        //      console.log(this.cart.length)
 
-        for(let i=0; i<this.cart.length;i++){
-          if(this.cart[i]._id === lessonRemove._id){
-            lessonRemove.space++;
-            this.cart.splice(this.cart.indexOf(lessonRemove),1)
-          }
-        }
+        // for(let i=0; i<this.cart.length;i++){
+        //   if(this.cart[i]._id === lessonRemove._id){
+        //     lessonRemove.space++;
+        //     this.cart.splice(this.cart.indexOf(lessonRemove),1)
+        //   }
+        // }
+        console.log(this.cart.indexOf(lessonRemove).subject);
+        this.cart.splice(lessonRemove,1);
+        
 
     },
+    updateSpace(lesson){
+      lesson.space++;
+    },
     showCheckout() { this.website.showProduct = this.website.showProduct ? false : true;}}
+    ,
+ async created () {
+     var vm = this;
+       await fetch('https://web-apps-cw2.herokuapp.com/lesson').then(response => {
+            response.json().then(
+              function (json) {
+                console.log(JSON.stringify(json));
+                vm.lessons = json;
+               
+              });
+          });
+      }
     
   
 };

@@ -28,16 +28,9 @@ export default {
     
    
   name: 'lessonList',
-   
+  props: ['lessons'],
   data() {
     return {
-        
-      lessons: [
-        {
-            
-        }
-      ] ,
-      
       
     }
   },
@@ -50,18 +43,7 @@ export default {
       }
  
 
-},
- async created () {
-     var vm = this;
-       await fetch('https://web-apps-cw2.herokuapp.com/lesson').then(response => {
-            response.json().then(
-              function (json) {
-                console.log(JSON.stringify(json));
-                vm.lessons = json;
-               
-              });
-          });
-      }
+}
 }
 </script>
 
