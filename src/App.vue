@@ -3,10 +3,10 @@
 
     <header>
       <h1>{{website.name}}</h1>
-      <button @click="showCheckout">{{this.cart.length}} Checkout </button>
+      <button v-on:click="website.showProduct = !website.showProduct">{{this.cart.length}} Checkout </button>
        </header>
-       <lesson-list :lessons="lessons" @addLesson="addItem"></lesson-list>
-       <checkout :cart="cart" @removeLesson="removeFromCart" @passLessonToRemove="updateSpace"></checkout>
+       <lesson-list v-if="website.showProduct" :lessons="lessons" @addLesson="addItem"></lesson-list>
+       <checkout v-if="!website.showProduct" :cart="cart" @removeLesson="removeFromCart" @passLessonToRemove="updateSpace"></checkout>
   </div>
 </template>
 
@@ -27,7 +27,7 @@ export default {
        cart: [{}], 
       website: {
         name: "Courses",
-      
+        showProduct: true
       },
       
     }
@@ -57,7 +57,7 @@ export default {
     updateSpace(lesson){
       lesson.space++;
     },
-    showCheckout() { this.website.showProduct = this.website.showProduct ? false : true;}}
+    showCheckout() { this.website.showProduct === this.website.showProduct ? false : true;}}
     ,
  async created () {
      var vm = this;
