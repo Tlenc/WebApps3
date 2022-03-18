@@ -1,28 +1,64 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+<div id="app">
+
+    <header>
+      <h1>{{website.name}}</h1>
+      <button @click="showCheckout">{{this.cart.length}} Checkout </button>
+       </header>
+       <lesson-list @addLesson="addItem"></lesson-list>
+       <checkout :cart="cart" @removeLesson="removeFromCart"></checkout>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import lessonList from './components/lesson_list.vue';
+import checkout from './components/Checkout_form.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    checkout,
+    lessonList
+  },
+  data() {
+    return {
+      lessons: {}, 
+       cart: [{}], 
+      website: {
+        name: "Courses",
+      
+      },
+      
+    }
+  },
+  methods: {
+    
+       addItem(lessonPass) {
+        this.cart.push(lessonPass);
+        lessonPass.space--;
+        console.log(lessonPass._id);
+      },
+    removeFromCart(lessonRemove){
+             console.log(this.cart.length)
+
+        for(let i=0; i<this.cart.length;i++){
+          if(this.cart[i]._id === lessonRemove._id){
+            lessonRemove.space++;
+            this.cart.splice(this.cart.indexOf(lessonRemove),1)
+          }
+        }
+
+    },
+    showCheckout() { this.website.showProduct = this.website.showProduct ? false : true;}}
+    
+  
+};
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+
+  
 }
 </style>
