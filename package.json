@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "deploy": "node ./node_modules/WebApps3/index.js"
+    "deploy": "node ./node_modules/WebApps3/index.js",
+    "homepage": "https://github.com/tlenc/my-WebApps3"
   },
   "dependencies": {
     "core-js": "^3.8.3",
